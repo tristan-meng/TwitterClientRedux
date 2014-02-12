@@ -83,6 +83,13 @@ public class TwitterClient extends OAuthBaseClient {
         client.get(url, null, handler);
         
     }
+
+    public void getTweetDetail(AsyncHttpResponseHandler handler, Long tweetId) {
+        String url = getApiUrl("statuses/show.json?id=" + tweetId);	
+        Log.d("DEBUG", "query tweet detail url: " + url);
+        client.get(url, null, handler);
+        
+    }
     
     public void postNewTweet(AsyncHttpResponseHandler handler, String text) {
         String url = getApiUrl("statuses/update.json?status=" + Uri.encode(text));	

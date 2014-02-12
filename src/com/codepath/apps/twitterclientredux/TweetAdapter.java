@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.apps.twitterclientredux.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -54,12 +56,22 @@ public class TweetAdapter extends ArrayAdapter {
 		});
 		
 		TextView nameView = (TextView) view.findViewById(R.id.tvName);
-		String formattedName = "<b>" + tweet.getUser().getName() + "</b>" + " <small><font color='#77777'>#" +
+		String formattedName = "<b>" + tweet.getUser().getName() + "</b>" + " <small><font color='#77777'>@" +
 				tweet.getUser().getScreenName() + "</font></small>";
 		nameView.setText(Html.fromHtml(formattedName));
 		
 		TextView bodyView = (TextView) view.findViewById(R.id.tvBody);
 		bodyView.setText(Html.fromHtml(tweet.getBody()));
+		bodyView.setTag(tweet.getTweetId());
+		bodyView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getContext(), TweetDetailActivity.class);
+				i.putExtra("tweet_id", (Long)view.getTag());
+			    context.startActivity(i);
+			}
+		});
 		
 		TextView dateView = (TextView) view.findViewById(R.id.tvCreateDate);
 		Date createDate = tweet.getCreateDate();

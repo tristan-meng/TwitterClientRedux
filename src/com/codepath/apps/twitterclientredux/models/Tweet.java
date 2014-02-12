@@ -34,15 +34,18 @@ public class Tweet extends Model implements Serializable {
     private boolean favorited;
 	@Column(name="CreateDate", index=true)
     private Date createDate;
+	private int retweetCount;
 	@Column(name="User")
 	private User user;
+	private ArrayList<Url> urls;
+	
     
 	public Tweet() {
 		super();
 	}
 	
 	public Tweet(User user, long tweetId, String body, boolean retweeted,
-			boolean favorited, Date createDate) {
+			boolean favorited, Date createDate, int favoritedCount, int retweetCount, ArrayList<Url> urls) {
 		super();
 		this.user = user;
 		this.tweetId = tweetId;
@@ -50,6 +53,8 @@ public class Tweet extends Model implements Serializable {
 		this.retweeted = retweeted;
 		this.favorited = favorited;
 		this.createDate = createDate;
+		this.retweetCount = retweetCount;
+		this.urls = urls;
 	}
 
 	public Tweet(Tweet cloneTweet) {
@@ -59,6 +64,8 @@ public class Tweet extends Model implements Serializable {
 		this.retweeted = cloneTweet.isRetweeted();
 		this.favorited = cloneTweet.isFavorited();
 		this.createDate = cloneTweet.getCreateDate();
+		this.retweetCount = cloneTweet.getRetweetCount();
+		this.urls = cloneTweet.getUrls();
 	}
 	
 	public User getUser() {
@@ -86,6 +93,10 @@ public class Tweet extends Model implements Serializable {
 	}
 
 	
+	public int getRetweetCount() {
+		return retweetCount;
+	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -110,6 +121,18 @@ public class Tweet extends Model implements Serializable {
 		this.createDate = createDate;
 	}
 
+	public void setRetweetCount(int retweetCount) {
+		this.retweetCount = retweetCount;
+	}
+
+	public ArrayList<Url> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(ArrayList<Url> urls) {
+		this.urls = urls;
+	}
+
 	public static Tweet fromJson(JSONObject jsonObject) {
 		Tweet tweet = new Tweet();
 		
@@ -120,6 +143,8 @@ public class Tweet extends Model implements Serializable {
 			tweet.favorited = jsonObject.getBoolean("favorited");
 			tweet.retweeted = jsonObject.getBoolean("retweeted");
 			tweet.createDate = getDate(jsonObject.getString("created_at"));
+			tweet.retweetCount = jsonObject.getInt("retweet_count");
+			tweet.urls = Url.fromJson(jsonObject.getJSONObject("entities").getJSONArray("urls"));
 			
 		}
 		catch (JSONException e) {

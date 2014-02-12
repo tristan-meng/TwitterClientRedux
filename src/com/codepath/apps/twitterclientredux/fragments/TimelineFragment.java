@@ -1,14 +1,16 @@
 package com.codepath.apps.twitterclientredux.fragments;
 
 import org.json.JSONArray;
-
-import com.codepath.apps.twitterclientredux.TwitterClientApp;
-import com.codepath.apps.twitterclientredux.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.codepath.apps.twitterclientredux.TwitterClientApp;
+import com.codepath.apps.twitterclientredux.models.Tweet;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineFragment extends TweetListFragment {
     TweetListFragment fragmentTimeline;
@@ -48,13 +50,38 @@ public class TimelineFragment extends TweetListFragment {
         		hideProgressBar();
         	}
 
+        	@Override
+          protected void handleFailureMessage(Throwable e, String responseBody) {
+          try {
+              if (responseBody != null) {
+                  Object jsonResponse = parseResponse(responseBody);
+                  if(jsonResponse instanceof JSONObject) {
+                   	  Log.d("DEBUG", "failed1!");
+                   	  
+                   	                      onFailure(e, (JSONObject)jsonResponse);
+                  } else if(jsonResponse instanceof JSONArray) {
+                   	  Log.d("DEBUG", "failed2!");
+                      onFailure(e, (JSONArray)jsonResponse);
+                  } else {
+                   	  Log.d("DEBUG", "failed3!");
+                     onFailure(e, responseBody);
+                  }
+              }else {
+            	  Log.d("DEBUG", "failed4!");
+                  onFailure(e, "");
+              }
+          }catch(JSONException ex) {
+              onFailure(e, responseBody);
+          }
+      }
+        	/*
 			@Override
 			public void onFailure(Throwable arg0, JSONArray arg1) {
 				Log.d("DEBUG", "Fetch timeline failure");
 				hideProgressBar();
        	    	Toast.makeText(getActivity(), "Something is wrong", Toast.LENGTH_SHORT).show();
 			}
-        	
+        	*/
         }, id);
     }
 

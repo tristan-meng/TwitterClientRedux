@@ -43,8 +43,6 @@ public class ComposeActivity extends Activity {
 		String screenName = getIntent().getStringExtra("screenname");
 		String profileImage = getIntent().getStringExtra("profileimageurl");
 		
-		Log.d("DEBUG", "screen name=" + screenName);
-		
 		tvProfileName.setText(screenName);
 		ImageLoader.getInstance().displayImage(profileImage, ivProfileImage);
 		etNewBody.addTextChangedListener(new TextWatcher() {
@@ -77,7 +75,6 @@ public class ComposeActivity extends Activity {
         	    public void onSuccess(JSONObject jsonNewTweet) {
      		    	newTweet = Tweet.fromJson(jsonNewTweet);
                     if (newTweet!=null) {
-    		            Log.d("DEBUG", "post tweet body=" + newTweet.getBody());
        		            Intent data = new Intent();
        		            data.putExtra(TimelineActivity.TWEET_KEY, newTweet);
        	        	    setResult(Activity.RESULT_OK, data);

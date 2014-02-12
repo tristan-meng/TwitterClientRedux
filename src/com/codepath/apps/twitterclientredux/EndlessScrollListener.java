@@ -31,7 +31,6 @@ public abstract class EndlessScrollListener implements OnScrollListener {
     @Override
     public void onScroll(AbsListView view,int firstVisibleItem,int visibleItemCount,int totalItemCount) 
         {
-    	Log.d("DEBUG", "onScroll firstitem=" + firstVisibleItem + ", visible count=" + visibleItemCount + ", total=" + totalItemCount);
         // If the total item count is zero and the previous isn't, assume the
         // list is invalidated and should be reset back to initial state
         // If there are no items in the list, assume that initial items are loading

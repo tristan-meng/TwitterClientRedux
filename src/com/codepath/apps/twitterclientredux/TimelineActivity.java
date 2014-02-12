@@ -80,7 +80,6 @@ public class TimelineActivity extends FragmentActivity implements TabListener {
     	}
     	if (this.userScreenName==null || this.userScreenName.length()==0)
     		fetchUserProfile();
-    	Log.d("DEBUG", "user screen name=" + this.userScreenName);
     	Intent i = new Intent(this, ComposeActivity.class);
     	i.putExtra("screenname", this.userScreenName);
     	i.putExtra("profileimageurl", this.userProfileImageUrl);    // Pass the item text
