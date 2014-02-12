@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".TweetDetailActivity" >
+
+        <ImageView
+            android:id="@+id/ivDetailUserImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:src="@android:drawable/screen_background_light_transparent" />
+
+        <TextView
+            android:id="@+id/tvDetailUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivDetailUserImage"
+            android:layout_toRightOf="@+id/ivDetailUserImage"
+            android:textSize="16sp"
+            android:text="Name" />  
+                  
+        <TextView
+            android:id="@+id/tvDetailUserScreenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvDetailUserName"
+            android:layout_below="@+id/tvDetailUserName"
+            android:textSize="12sp"
+            android:text="Screen Name" />    
+                
+        <TextView
+            android:id="@+id/tvDetailTweet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ivDetailUserImage"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvDetailUserScreenName"
+            android:layout_marginTop="20dp"
+            android:text="Detail Tweet" />
+
+         <TextView
+             android:id="@+id/tvDetailCreateDate"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignLeft="@+id/tvDetailTweet"
+             android:layout_below="@+id/tvDetailTweet"
+             android:layout_marginTop="10dp"
+             android:text="Create date"
+             android:textColor="#ff666666"
+             android:textSize="10sp" />
+
+         <TextView
+             android:id="@+id/tvDetailCounts"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignLeft="@+id/tvDetailCreateDate"
+             android:layout_below="@+id/tvDetailCreateDate"
+             android:layout_marginTop="20dp"
+             android:text="0 retweets"
+             android:textSize="15sp" />
+         
+</RelativeLayout>
